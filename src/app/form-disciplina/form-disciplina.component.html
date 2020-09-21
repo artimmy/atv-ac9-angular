@@ -1,0 +1,48 @@
+<h5 class="text-center mt-4">Cadastro de Disciplinas</h5>
+
+<!--Form-->
+<form (ngSubmit)="salvar();formulario.resetForm()" #formulario="ngForm">
+	<div class="form-group mt-3">
+		<div class="form-group mt-4">
+			<label>Nome</label>
+			<input [(ngModel)]="disciplina.nome" class="form-control" name="nome" #nome="ngModel" required>
+			<div [hidden]="nome.valid || nome.pristine" class="alert alert-danger">
+				Nome é obrigatório
+			</div>
+		</div>
+		<div class="form-group mt-3">
+			<label>Carga horária</label>
+			<select [(ngModel)]="disciplina.carga" class="form-control" name="carga" #carga="ngModel"
+    required>
+      <option></option>
+      <option>40</option>
+      <option>80</option>
+    </select>
+			<div [hidden]="carga.valid || carga.pristine" class="alert alert-danger">
+				Carga horária é obrigatória
+			</div>
+		</div>
+	</div>
+	<div>
+		<button type="submit" [disabled]="!formulario.form.valid" class="btn btn-success mr-3 ">Salvar</button>
+		<button type="reset" class="btn btn-light">Limpar</button>
+	</div>
+</form>
+
+<!--Table of Content-->
+<div class="table-responsive-sm mt-4" *ngIf="servico.disciplinas.length > 0">
+	<table class="table table-striped table-hover">
+		<thead>
+			<tr>
+				<th scope="col">NOME</th>
+				<th scope="col">CARGA</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let item of servico.disciplinas" (contextmenu)="excluir(item)">
+				<td>{{item.nome}}</td>
+				<td>{{item.carga}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

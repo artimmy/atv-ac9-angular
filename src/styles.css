@@ -1,0 +1,12 @@
+/* Add application styles & imports to this file! */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+/* campos de entrada */
+.ng-valid[required], .ng-valid.required {
+border-left: 5px solid #42A948; /* green */
+}
+.ng-invalid:not(form) {
+border-left: 5px solid #a94442; /* red */
+}
+/* estilo para a barra de navegação */
+.ativo {color:red !important}
+nav a {text-decoration: none !important}

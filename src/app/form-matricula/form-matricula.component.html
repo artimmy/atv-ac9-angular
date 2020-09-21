@@ -1,0 +1,68 @@
+<h5 class="text-center mt-4">Cadastro de Matrículas</h5>
+
+<!--Form-->
+<form (ngSubmit)="salvar();formulario.resetForm()" #formulario="ngForm">
+	<div class="form-group mt-4">
+		<label>Aluno</label>
+		<select [(ngModel)]="matricula.aluno" class="form-control" name="aluno" #aluno="ngModel"
+required>
+<!-- como são objetos, então o property binding não pode ser [value], mas [ngValue] -->
+<option *ngFor="let item of servico.alunos" [ngValue]="item">{{item.nome}}</option>
+</select>
+		<div [hidden]="aluno.valid || aluno.pristine" class="alert alert-danger">
+			É obrigatório selecionar o aluno
+		</div>
+	</div>
+
+	<div class="form-group mt-3">
+		<label>Disciplina</label>
+		<select [(ngModel)]="matricula.disciplina" class="form-control" name="disciplina" #disciplina="ngModel"
+required>
+<!-- como são objetos, então o property binding não pode ser [value], mas [ngValue] -->
+<option *ngFor="let item of servico.disciplinas" [ngValue]="item">{{item.nome}}</option>
+</select>
+		<div [hidden]="disciplina.valid || disciplina.pristine" class="alert alert-danger">
+			É obrigatório selecionar a disciplina
+		</div>
+	</div>
+
+	<div class="form-group mt-3">
+		<label>Nota</label>
+		<select [(ngModel)]="matricula.nota" class="form-control" name="nota" #nota="ngModel"
+required>
+<!-- como são objetos, então o property binding não pode ser [value], mas [ngValue] porem nesse caso eu criei este array de numeros então não é necessário o [ngValue] -->
+<option *ngFor="let item of [0,1,2,3,4,5,6,7,8,9,10]" [value]="item">{{item}}</option>
+</select>
+		<div [hidden]="nota.valid || nota.pristine" class="alert alert-danger">
+			É obrigatório selecionar a nota
+		</div>
+	</div>
+
+	<div>
+
+		<button type="submit" [disabled]="!formulario.form.valid" class="btn btn-success mr-3 ">Salvar</button>
+
+		<button type="reset" class="btn btn-light">Limpar</button>
+	</div>
+
+</form>
+
+<!--Table of Content-->
+<div class="table-responsive-sm mt-4" *ngIf="servico.matriculas.length > 0">
+	<table class="table table-striped table-hover">
+		<thead>
+			<tr>
+				<th scope="col">NOME</th>
+				<th scope="col">DISCIPLINA</th>
+				<th scope="col">NOTA</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let item of servico.matriculas" (contextmenu)="excluir(item)">
+				<td>{{item.aluno.nome}}</td><!--aqui eu pego a propriedade dentro de um objeto que esta dentro de outro {{item(do meu array matriculas).aluno(objeto aluno).nome(propriedade do aluno)}}-->
+				<td>{{item.disciplina.nome}}</td><!--aqui eu pego a propriedade dentro de um objeto que esta dentro de outro {{item(do meu array matriculas).aluno(objeto aluno).nome(propriedade do aluno)}}-->
+				<td>{{item.nota}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
